@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import * as ROUTES from './constants/routes';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+const Login = lazy(() => import('./pages/login'));
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route path={ROUTES.LOGIN}>LOGIN Page</Route>
-        <Route path={ROUTES.SIGN_UP}>SIGN_UP Page</Route>
-        <Route path={ROUTES.PROFILE}>PROFILE Page</Route>
-        <Route path={ROUTES.DASHBOARD} exact>DASHBOARD Page</Route>
-        <Route>Notfound Page</Route>
-      </Switch>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Switch>
+          <Route path={ROUTES.LOGIN} component={Login} />
+        </Switch>
+      </Suspense>
     </Router>
   );
 }
